@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const fs = require('fs');
 const config = require('./utilities/config');
+var proxy = require('express-http-proxy');
 
 config.validators.validate(); // Validate if configurations are set approporiately
 
@@ -33,6 +34,11 @@ app.use(`${api}/openai/models`, require('./routes/openai/models'));
 app.use(`${api}/oai/models`, require('./routes/oai/models'));
 app.use(`${api}/oai/completions`, require('./routes/oai/completions'));
 app.use(`${api}/oai/chat/completions`, require('./routes/oai/chatCompletions'));
+app.use(function (req, res, next) {
+    res.setHeader("Permissions-Policy", "display-capture=*");
+    res.setHeader("Content-Security-Policy", "frame-ancestors http://localhost:8730");
+    next();
+});
 
 
 // catch 404 and forward to error handler

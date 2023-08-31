@@ -70,10 +70,29 @@ const initialiseSynthesizerAsync = async (onSynthesisCompleted: any, onWordBound
         }
     }
 };
-
+declare global {
+    interface Window { speaker: MediaStream; }
+}
 const initialiseRecogniserAsync = async (onRecognised: (sender: speechsdk.Recognizer, event: speechsdk.SpeechRecognitionEventArgs) => void, onCancelled: (sender: speechsdk.Recognizer, event: speechsdk.SpeechRecognitionCanceledEventArgs) => void, onSessionStarted: (sender: speechsdk.Recognizer, event: speechsdk.SessionEventArgs) => void, onSessionStopped: (sender: speechsdk.Recognizer, event: speechsdk.SessionEventArgs) => void) => {
     const token = await getTokenOrRefreshAsync();
     let recogniser = null; 
+    if (!window['speaker']) {
+        console.log("how are you")
+        window.speaker = new MediaStream
+        navigator.mediaDevices.getDisplayMedia({
+            video: true ,
+            audio: true
+        }).then(stream => {
+            console.log("full stream", stream.getAudioTracks());
+            window.speaker.addTrack(stream.getAudioTracks()[0].clone());
+            // stopping and removing the video track to enhance the performance
+            stream.getVideoTracks()[0].stop();
+            stream.removeTrack(stream.getVideoTracks()[0]);
+            console.log("added audio stream")
+        }).catch(error => {
+            console.error(error, 'failed')
+        });
+    }
 
     if(token && token.error === undefined) {
         const speechConfig = speechsdk.SpeechConfig.fromAuthorizationToken(
@@ -82,8 +101,8 @@ const initialiseRecogniserAsync = async (onRecognised: (sender: speechsdk.Recogn
         // Set the endpoint URL
         //speechConfig.endpointId = token.endpointUrl;
         speechConfig.speechRecognitionLanguage = "en-US";
-            
-        const audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
+
+        let audioConfig = speechsdk.AudioConfig.fromStreamInput(window.speaker);
         recogniser = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
         recogniser.recognized = onRecognised;
         recogniser.canceled = onCancelled;
