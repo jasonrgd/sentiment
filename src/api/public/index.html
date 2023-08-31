@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Example of HTML frameborder attribute with frame</title>
+<style>
+    iframe.qa3 {
+    position: fixed;
+    background: #000;
+    border: none;
+    top: 0; right: 0;
+    bottom: 0; left: 0;
+    height: 100%;
+}
+iframe.local {
+    position: fixed;
+    top: 0; right: 0;
+    bottom: 0; 
+    left:80%;
+}
+</style>
+</head>
+<body>
+    <iframe class="qa3" src="https://qa3-functional.ipscape.com.au//workspace/login" frameborder="0" style="overflow:hidden;height:100%;width:80%" height="100%" width="80%"></iframe>
+    <iframe class="local" allow="camera *;microphone *" src="http://localhost:3000/transcribe" frameborder="0" style="overflow:hidden;height:100%;width:20%" height="100%" width="20%"></iframe>
+
+</body>
+</html>

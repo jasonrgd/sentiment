@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const analyseTextAsync = async (transcript: string, type: string) => {
+const analyseTextAsync = async (transcript: any, type: string) => {
     // Ensure the transcript is not empty
     if(transcript === undefined || transcript === null || transcript === '') {
         throw new Error('Transcript is required');

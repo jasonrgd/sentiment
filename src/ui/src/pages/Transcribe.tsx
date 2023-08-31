@@ -7,6 +7,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import Clear from "@mui/icons-material/Clear";
 import PageHeader  from "../components/PageHeader";
 import { speechService } from '../services/speechService';
+import { languageService } from "../services/languageService";
 import * as speechsdk from "microsoft-cognitiveservices-speech-sdk";
 
 interface TranscribeProps {
@@ -21,7 +22,11 @@ const Transcribe: FC<TranscribeProps> = ({ sharedState }): ReactElement => {
     const setupRecogniser = async () => {
         const onRecognised = (s: any, e: { result: { reason: speechsdk.ResultReason; text: React.SetStateAction<string>; }; }) => {
             if (e.result.reason === speechsdk.ResultReason.RecognizedSpeech) {                
-                console.log(`RECOGNIZED: Text=${e.result.text}`);                
+                console.log(`RECOGNIZED: Text=${e.result.text}`);   
+                let sentiment = languageService.analyseTextAsync(e.result.text, 'analyse-sentiment');
+                sentiment.then(function(result){
+                    console.log(result);
+                });             
                 setLocalTranscript((prevTranscript: string[]) => {
                     let t = [...prevTranscript, e.result.text]; 
 
@@ -31,8 +36,7 @@ const Transcribe: FC<TranscribeProps> = ({ sharedState }): ReactElement => {
                      * ***************************************
                      * This is where you would send the transcript to a server for processing.
                      */                                     
-
-
+                    
                     return t;
                 });
             } else if (e.result.reason === speechsdk.ResultReason.NoMatch) {
