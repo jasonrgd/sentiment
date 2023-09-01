@@ -103,6 +103,7 @@ const initialiseRecogniserAsync = async (onRecognised: (sender: speechsdk.Recogn
         speechConfig.speechRecognitionLanguage = "en-US";
 
         let audioConfig = speechsdk.AudioConfig.fromStreamInput(window.speaker);
+        //let audioConfig = speechsdk.AudioConfig.fromDefaultMicrophoneInput();
         recogniser = new speechsdk.SpeechRecognizer(speechConfig, audioConfig);
         recogniser.recognized = onRecognised;
         recogniser.canceled = onCancelled;

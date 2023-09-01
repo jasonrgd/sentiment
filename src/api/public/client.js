@@ -1,30 +1,11 @@
-console.log(navigator.getDisplayMedia)
-var speaker = new MediaStream;
+document.domain = 'localhost';
+setTimeout(function(){
 
-if (navigator.getDisplayMedia) {
-    console.log("navigator.displayMedia")
-    navigator.getDisplayMedia({
-        video: true ,
-        audio: true
-    }).then(stream => {
-        speaker.addTrack(stream.getAudioTracks()[0].clone());
-        // stopping and removing the video track to enhance the performance
-        stream.getVideoTracks()[0].stop();
-        stream.removeTrack(stream.getVideoTracks()[0]);
-    }).catch(() => {
-        console.error('failed')
-    });
-} else if (navigator.mediaDevices.getDisplayMedia) {
-    console.log(navigator.mediaDevices.getDisplayMedia)
-    navigator.mediaDevices.getDisplayMedia({
-        video: true ,
-        audio: true
-    }).then(stream => {
-        speaker.addTrack(stream.getAudioTracks()[0].clone());
-        // stopping and removing the video track to enhance the performance
-        stream.getVideoTracks()[0].stop();
-        stream.removeTrack(stream.getVideoTracks()[0]);
-    }).catch(() => {
-        console.error('failed')
-    });
-}
+    var qa3Frame = document.getElementById('qa3');
+    var aiFrame = document.getElementById('local');
+
+    console.log(qa3Frame)
+    console.log(aiFrame)
+    console.log(aiFrame.contentWindow.document.getElementById('root'));
+
+}, 3000);

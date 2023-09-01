@@ -31,7 +31,7 @@ export const routes: Array<Route> = [
     },        
     {
         key: 'transcribe-route',
-        title: 'Transcribe',
+        title: 'InMotion Insights',
         path: '/transcribe',
         enabled: true,
         component: Transcribe,

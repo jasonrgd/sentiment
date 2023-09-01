@@ -45,14 +45,14 @@ const Home: FC<HomeProps> = ({ sharedState }): ReactElement => {
                 {description}
             </Typography>            
             <Typography variant="h6" style={{margin: '2rem'}}>                
-                You can leverage Azure Cognitive Services and the Azure Open AI Services to build your app.                                                           
-                This app relies on backend apis published via `api` project within this repo.                             
+                We leveraged Azure Cognitive Services and the Azure Open AI Services to build our AI app.                                                           
+                {/* This app relies on backend apis published via `api` project within this repo.                             
                 Please ensure that the `api` project is running before attempting to use this app.               
                 Requests to <code style={{color: colors.purple[500]}}>/api</code> path are proxied to the api 
-                project at {' '}<code><Link target="_blank" href="http://localhost:8730/api">http://localhost:8730/api</Link></code>.                 
+    project at {' '} */} <code><Link target="_blank" href="http://localhost:8730/api">http://localhost:8730/api </Link></code>                 
             </Typography>
         </Box>
     );
 };
 
-export default Home;
+export default Home

@@ -39,7 +39,7 @@ export const Footer: FC = (): ReactElement => {
                 <FavoriteIcon fontSize="small" style={{ color: colors.red[400]}} />
                 &nbsp;at&nbsp;
                 <Link href={appInfo.repositoryOptional || ""} target="_blank" rel="noreferrer" color="inherit">
-                    <GitHubIcon fontSize="small" />
+                    <img width="20" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6qhVX_8oKmV4Dzu3t27mxSwjau-bjfNSGNdDTb8-2Q129qOwcscbDf_s_ANEpxYrgtTc&usqp=CAU" /> ipSCAPE
                 </Link>
             </Typography>
           </Grid>          
